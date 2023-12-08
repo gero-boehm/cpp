@@ -10,7 +10,7 @@ Zombie::~Zombie()
 	std::cout << "Zombie " << this->_name << " died." << std::endl;
 }
 
-void Zombie::set_name(const std::string &name)
+void Zombie::setName(const std::string &name)
 {
 	this->_name = name;
 }
