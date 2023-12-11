@@ -1,5 +1,5 @@
 CXX=c++
-CXXFLAGS=
+CXXFLAGS=-std=c++98
 NAME=complain
 OBJ_DIR=obj
 SRC=$(wildcard *.cpp)
