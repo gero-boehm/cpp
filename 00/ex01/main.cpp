@@ -17,5 +17,6 @@ int main()
 		else
 			std::cout << "Invalid command." << std::endl;
 	}
+
 	return 0;
 }

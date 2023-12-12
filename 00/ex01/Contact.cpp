@@ -20,3 +20,12 @@ std::string Contact::get_nickname() const
 {
 	return _nickname;
 }
+
+void Contact::print() const
+{
+	std::cout << "First Name: " << _first_name << std::endl;
+	std::cout << "Last Name: " << _last_name << std::endl;
+	std::cout << "Nickname: " << _nickname << std::endl;
+	std::cout << "Phone Number: " << _phone_number << std::endl;
+	std::cout << "Darkest Secret: " << _darkest_secret << std::endl;
+}
