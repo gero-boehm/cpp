@@ -34,5 +34,7 @@ re: fclean all
 test: all
 	./$(NAME)
 
+valgrind: all
+
 .PHONY:
-	all bonus clean fclean test
+	all clean fclean re test valgrind

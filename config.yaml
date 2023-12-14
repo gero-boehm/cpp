@@ -2,10 +2,82 @@ cpp00:
   ex00:
     name: megaphone
     tests:
-      - valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
-      - valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) can you fucking hear me?!
-      - valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "what about" "strings?"
+      - VALGRIND
+      - VALGRIND can you fucking hear me?!
+      - VALGRIND "what about" "strings?"
   ex01:
     name: phonebook
     tests:
-      - echo -e "bleurgh\nADD\n\nfirst\nlast\nnick\n123\nyou'll never know\nSEARCH\n1\nb\n0\nEXIT\n" | valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+      - echo -e "bleurgh\nADD\n\nfirst\nlast\nnick\n123\nyou'll never know\nSEARCH\n1\nb\n0\nEXIT\n" | VALGRIND
+
+cpp01:
+  ex00:
+    name: brainz
+    tests:
+      - VALGRIND
+  ex01:
+    name: horde
+    tests:
+      - VALGRIND
+  ex02:
+    name: hi
+    tests:
+      - VALGRIND
+  ex03:
+    name: weapons
+    tests:
+      - VALGRIND
+  ex04:
+    name: replace
+    tests:
+      - echo "hello how are you?" > tmp.txt; VALGRIND tmp.txt " " "_" END; rm -f tmp.txt
+  ex05:
+    name: complain
+    tests:
+      - VALGRIND
+
+cpp02:
+  ex00:
+    name: fixed
+    tests:
+      - VALGRIND
+  ex01:
+    name: fixed
+    tests:
+      - VALGRIND
+  ex02:
+    name: fixed
+    tests:
+      - VALGRIND
+
+cpp03:
+  ex00:
+    name: claptrap
+    tests:
+      - VALGRIND
+  ex01:
+    name: scavtrap
+    tests:
+      - VALGRIND
+  ex02:
+    name: fragtrap
+    tests:
+      - VALGRIND
+
+cpp04:
+  ex00:
+    name: animal
+    tests:
+      - VALGRIND
+  ex01:
+    name: brain
+    tests:
+      - VALGRIND
+  ex02:
+    name: abstract
+    tests:
+      - VALGRIND
+  ex03:
+    name: interfaces
+    tests:
+      - VALGRIND

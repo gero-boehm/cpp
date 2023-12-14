@@ -35,7 +35,7 @@ test: all
 	./$(NAME)
 
 valgrind: all
-	echo -e "bleurgh\nADD\n\nfirst\nlast\nnick\n123\nyou'll never know\nSEARCH\n1\nb\n0\nEXIT\n" | valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+	@echo -e "bleurgh\nADD\n\nfirst\nlast\nnick\n123\nyou'll never know\nSEARCH\n1\nb\n0\nEXIT\n" | valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 2>&1 | ../../eval.sh
 
 .PHONY:
-	all bonus clean fclean test valgrind
+	all clean fclean re test valgrind

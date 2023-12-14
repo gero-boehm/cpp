@@ -1,7 +1,7 @@
 #!/bin/bash
 
 config_file="./config.yaml"
-makefile_path="./Makefile"
+makefile_path="./Template"
 
 tests=()
 
@@ -10,14 +10,18 @@ while IFS= read -r line; do
 	if [[ ! "$line" =~ ^[[:space:]]+- ]] && [[ -n $tests ]]; then
 		formatted_tests=""
 		for test in "${tests[@]}"; do
-			formatted_tests+=$'\t'"$test"$'\n'
+			test=$(echo "$test" | sed 's/VALGRIND/valgrind --leak-check=full --show-leak-kinds=all .\/\$(NAME)/')
+			if [[ "$test" =~ END ]]; then
+				test=$(echo "$test" | sed 's/END/2>\&1 | ..\/..\/eval.sh/')
+			else
+				test+=" 2>&1 | ../../eval.sh"
+			fi
+			formatted_tests+=$'\t'"@$test"$'\n'
 		done
 
 		tmp_file=$(mktemp)
-		echo "$formatted_tests" > "$tmp_file"
-
+		echo -n "$formatted_tests" > "$tmp_file"
 		sed -i "" "/valgrind: all/r $tmp_file" "$path/Makefile"
-
 		rm "$tmp_file"
 
 		tests=()

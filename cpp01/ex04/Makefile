@@ -34,5 +34,8 @@ re: fclean all
 test: all
 	./$(NAME)
 
+valgrind: all
+	@echo "hello how are you?" > tmp.txt; valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) tmp.txt " " "_" 2>&1 | ../../eval.sh; rm -f tmp.txt
+
 .PHONY:
-	all bonus clean fclean test
+	all clean fclean re test valgrind
