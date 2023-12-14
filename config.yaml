@@ -1,0 +1,11 @@
+cpp00:
+  ex00:
+    name: megaphone
+    tests:
+      - valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
+      - valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) can you fucking hear me?!
+      - valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) "what about" "strings?"
+  ex01:
+    name: phonebook
+    tests:
+      - echo -e "bleurgh\nADD\n\nfirst\nlast\nnick\n123\nyou'll never know\nSEARCH\n1\nb\n0\nEXIT\n" | valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)

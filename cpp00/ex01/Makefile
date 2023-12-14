@@ -1,6 +1,6 @@
 CXX=c++
 CXXFLAGS=-std=c++98
-NAME=
+NAME=phonebook
 OBJ_DIR=obj
 SRC=$(wildcard *.cpp)
 OBJ=$(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC))
@@ -35,7 +35,7 @@ test: all
 	./$(NAME)
 
 valgrind: all
-
+	echo -e "bleurgh\nADD\n\nfirst\nlast\nnick\n123\nyou'll never know\nSEARCH\n1\nb\n0\nEXIT\n" | valgrind --leak-check=full --show-leak-kinds=all ./$(NAME)
 
 .PHONY:
 	all bonus clean fclean test valgrind

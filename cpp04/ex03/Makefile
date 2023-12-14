@@ -1,6 +1,6 @@
 CXX=c++
 CXXFLAGS=-std=c++98
-NAME=
+NAME=interfaces
 OBJ_DIR=obj
 SRC=$(wildcard *.cpp)
 OBJ=$(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC))
@@ -34,8 +34,5 @@ re: fclean all
 test: all
 	./$(NAME)
 
-valgrind: all
-
-
 .PHONY:
-	all bonus clean fclean test valgrind
+	all bonus clean fclean test
