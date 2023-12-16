@@ -35,7 +35,9 @@ test: all
 	./$(NAME)
 
 valgrind: all
-	@echo "hello how are you?" > tmp.txt; valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) tmp.txt " " "_" 2>&1 | ../../eval.sh; rm -f tmp.txt
+	echo "hello how are you?" > tmp.txt; valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) tmp.txt " " "_" 2>&1 | ../../eval.sh; rm -f tmp.txt
+	echo -n "" > tmp.txt; valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) tmp.txt " " "_" 2>&1 | ../../eval.sh; rm -f tmp.txt
+	echo "this is a test with no match" > tmp.txt; valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) tmp.txt "strawberry" "jam" 2>&1 | ../../eval.sh; rm -f tmp.txt
 
 .PHONY:
 	all clean fclean re test valgrind

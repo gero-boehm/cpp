@@ -31,6 +31,8 @@ cpp01:
     name: replace
     tests:
       - echo "hello how are you?" > tmp.txt; VALGRIND tmp.txt " " "_" END; rm -f tmp.txt
+      - echo -n "" > tmp.txt; VALGRIND tmp.txt " " "_" END; rm -f tmp.txt
+      - echo "this is a test with no match" > tmp.txt; VALGRIND tmp.txt "strawberry" "jam" END; rm -f tmp.txt
   ex05:
     name: complain
     tests:
@@ -81,3 +83,4 @@ cpp04:
     name: interfaces
     tests:
       - VALGRIND
+

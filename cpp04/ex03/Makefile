@@ -35,6 +35,7 @@ test: all
 	./$(NAME)
 
 valgrind: all
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 2>&1 | ../../eval.sh
 
 .PHONY:
 	all clean fclean re test valgrind

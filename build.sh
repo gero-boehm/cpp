@@ -2,8 +2,12 @@
 
 config_file="./config.yaml"
 makefile_path="./Template"
+gitignore_path="./.gitignore"
 
 tests=()
+names=()
+
+names+=("**/obj")
 
 while IFS= read -r line; do
 
@@ -16,7 +20,7 @@ while IFS= read -r line; do
 			else
 				test+=" 2>&1 | ../../eval.sh"
 			fi
-			formatted_tests+=$'\t'"@$test"$'\n'
+			formatted_tests+=$'\t'"$test"$'\n'
 		done
 
 		tmp_file=$(mktemp)
@@ -36,9 +40,15 @@ while IFS= read -r line; do
 		cp "$makefile_path" "$path/Makefile"
 	elif [[ "$line" =~ ^[[:space:]]+name: ]]; then
 		name="${line##*: }"
+		names+=($(echo "$path/$name" | sed 's/^\.\///'))
 		sed -i "" "s/NAME=/NAME=$name/" "$path/Makefile"
 	elif [[ "$line" =~ ^[[:space:]]+- ]]; then
 		test="${line##*- }"
 		tests+=("$test")
 	fi
 done < "$config_file"
+
+echo -n > "$gitignore_path"
+for name in "${names[@]}"; do
+	echo "$name" >> "$gitignore_path"
+done

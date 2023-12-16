@@ -10,16 +10,12 @@ class Brain
 {
 	private:
 		std::string ideas[MAX_IDEAS];
-		unsigned int _refs;
 
 	public:
 		Brain(void);
 		Brain(const Brain &brain);
 		Brain &operator=(const Brain &brain);
 		~Brain();
-
-		void addRef(void);
-		bool delRef(void);
 
 };
 

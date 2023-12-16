@@ -1,4 +1,6 @@
+#include "AMateria.hpp"
 #include "Character.hpp"
+#include "Floor.hpp"
 
 Character::Character(void): _name("undefined")
 {
@@ -25,7 +27,13 @@ Character &Character::operator=(const Character &character)
 	_name = character._name;
 
 	for (int i = 0; i < INVENTORY_SIZE; i++)
-		_inventory[i] = _inventory[i] == NULL ? NULL : character._inventory[i]->clone();
+	{
+		delete _inventory[i];
+		_inventory[i] = NULL;
+
+		if (character._inventory[i] != NULL)
+			_inventory[i] = character._inventory[i]->clone();
+	}
 
 	return *this;
 }
@@ -56,6 +64,8 @@ void Character::unequip(int index)
 {
 	if (index < 0 || index >= INVENTORY_SIZE)
 		return;
+
+	Floor::getInstance().addMateria(_inventory[index]);
 
 	_inventory[index] = NULL;
 }

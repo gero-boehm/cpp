@@ -4,12 +4,12 @@
 # include <iostream>
 # include <string>
 
-# include "AMateria.hpp"
+class AMateria;
 
 class ICharacter
 {
 	public:
-		virtual ~ICharacter();
+		virtual ~ICharacter() {}
 
 		virtual const std::string &getName(void) const = 0;
 		virtual void equip(AMateria *materia) = 0;

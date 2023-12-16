@@ -5,7 +5,7 @@
 
 int get_content(const std::string &filename, std::string &content)
 {
-	std::ifstream infile(filename);
+	std::ifstream infile(filename.c_str());
 
 	if(!infile.is_open())
 	{
@@ -39,7 +39,7 @@ void replace(std::string &str, const std::string &s1, const std::string &s2)
 
 int write_str(const std::string &filename, const std::string &str)
 {
-	std::ofstream outfile(filename + ".replace");
+	std::ofstream outfile(std::string(filename + ".replace").c_str());
 
 	if(!outfile.is_open())
 	{
