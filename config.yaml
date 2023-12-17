@@ -84,3 +84,12 @@ cpp04:
     tests:
       - VALGRIND
 
+cpp05:
+  ex00:
+    name: bureaucrat
+    tests:
+      - VALGRIND
+  ex01:
+    name: form
+    tests:
+      - VALGRIND

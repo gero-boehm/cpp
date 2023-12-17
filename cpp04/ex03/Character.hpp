@@ -5,6 +5,7 @@
 # include <string>
 
 # include "ICharacter.hpp"
+# include "AMateria.hpp"
 
 # define INVENTORY_SIZE 4
 

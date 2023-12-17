@@ -39,8 +39,8 @@ class Fixed
 		void setRawBits(int const raw);
 		float toFloat() const;
 		int toInt() const;
-
-		friend std::ostream &operator<<(std::ostream &out, const Fixed &fixed);
 };
+
+std::ostream &operator<<(std::ostream &out, const Fixed &fixed);
 
 #endif

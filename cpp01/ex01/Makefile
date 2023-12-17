@@ -7,7 +7,7 @@ OBJ=$(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC))
 HEADERS=$(wildcard *.hpp)
 
 ifndef LENIENT
-	CXXFLAGS += -Wall -Wextra -Werror
+	CXXFLAGS += -Wall -Wextra -Werror -Wpedantic
 endif
 
 ifdef DEBUG
@@ -21,7 +21,7 @@ $(OBJ_DIR)/%.o: %.cpp $(HEADERS) Makefile
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(NAME) $^
+	$(CXX) $(CXXFLAGS) $(HEADERS) -o $(NAME) $^
 
 clean:
 	rm -rf $(OBJ_DIR)

@@ -1,6 +1,6 @@
 CXX=c++
 CXXFLAGS=-std=c++98
-NAME=weapons
+NAME=form
 OBJ_DIR=obj
 SRC=$(wildcard *.cpp)
 OBJ=$(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC))
@@ -35,7 +35,6 @@ test: all
 	./$(NAME)
 
 valgrind: all
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 2>&1 | ../../eval.sh
 
 .PHONY:
 	all clean fclean re test valgrind

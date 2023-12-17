@@ -2,9 +2,9 @@
 #include <iomanip>
 #include <sstream>
 
-PhoneBook::PhoneBook(): _index(0), _max_index(0) {};
+PhoneBook::PhoneBook(): _index(0), _max_index(0) {}
 
-PhoneBook::~PhoneBook() {};
+PhoneBook::~PhoneBook() {}
 
 void PhoneBook::_print_line(const std::string str1, const std::string str2, const std::string str3, const std::string str4)
 {
