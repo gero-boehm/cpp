@@ -1,56 +1,28 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main(void)
 {
 	{
-		Bureaucrat *bureaucrat = new Bureaucrat("Bob", 150);
-		std::cout << *bureaucrat;
-		bureaucrat->incrementGrade();
-		std::cout << *bureaucrat;
-		bureaucrat->decrementGrade();
-		std::cout << *bureaucrat;
-
-		delete bureaucrat;
-	}
-
-	try
-	{
-		Bureaucrat *bureaucrat = new Bureaucrat("Bob", 0);
-		std::cout << *bureaucrat;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "Cannot instatiate because: " << e.what() << std::endl;
-	}
-
-	try
-	{
-		Bureaucrat *bureaucrat = new Bureaucrat("Bob", 151);
-		std::cout << *bureaucrat;
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "Cannot instatiate because: " << e.what() << std::endl;
-	}
-
-	try
-	{
-		Bureaucrat bureaucrat("Bob", 1);
-		bureaucrat.incrementGrade();
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "Cannot increment grade because: " << e.what() << std::endl;
-	}
-
-	try
-	{
 		Bureaucrat bureaucrat("Bob", 150);
-		bureaucrat.decrementGrade();
+		Form form("Application Form", 150, 150);
+		bureaucrat.signForm(form);
 	}
-	catch (std::exception &e)
+
 	{
-		std::cout << "Cannot decrement grade because: " << e.what() << std::endl;
+		Bureaucrat worker("Worker", 140);
+		Bureaucrat manager("Manager", 100);
+		Bureaucrat boss("Boss", 50);
+		Form form1("Useless Form", 150, 1);
+		Form form2("Useful Form", 100, 1);
+		Form form3("Important Form", 50, 1);
+		worker.signForm(form1);
+		worker.signForm(form2);
+		manager.signForm(form1);
+		manager.signForm(form2);
+		manager.signForm(form3);
+		boss.signForm(form2);
+		boss.signForm(form3);
 	}
 
 	return 0;

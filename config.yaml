@@ -93,3 +93,22 @@ cpp05:
     name: form
     tests:
       - VALGRIND
+  ex02:
+    name: forms
+    tests:
+      - VALGRIND
+
+cpp06:
+  ex00:
+    name: conversion
+    tests:
+      - VALGRIND 5
+      - VALGRIND nan
+      - VALGRIND -3.14f
+      - VALGRIND inff
+      - VALGRIND 4.2
+  ex01:
+    name: data
+    tests:
+      - VALGRIND
+

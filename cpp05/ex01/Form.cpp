@@ -11,7 +11,8 @@ Form::Form(const std::string &name, unsigned int gradeToSign, unsigned int grade
 
 Form::Form(const Form &form): _name(form._name), _signed(form._signed), _gradeToSign(form._gradeToSign), _gradeToExecute(form._gradeToExecute) {}
 
-Form &Form::operator=(const Form &form) {
+Form &Form::operator=(const Form &form)
+{
 	if (this == &form)
 		return *this;
 	const_cast<std::string &>(_name) = form._name;
@@ -23,7 +24,8 @@ Form &Form::operator=(const Form &form) {
 
 Form::~Form() {}
 
-const std::string &Form::getName(void) const {
+const std::string &Form::getName(void) const
+{
 	return _name;
 }
 
@@ -31,31 +33,39 @@ bool Form::isSigned(void) const {
 	return _signed;
 }
 
-unsigned int Form::getGradeToSign(void) const {
+unsigned int Form::getGradeToSign(void) const
+{
 	return _gradeToSign;
 }
 
-unsigned int Form::getGradeToExecute(void) const {
+unsigned int Form::getGradeToExecute(void) const
+{
 	return _gradeToExecute;
 }
 
-void Form::beSigned(const Bureaucrat &bureaucrat) {
+void Form::beSigned(const Bureaucrat &bureaucrat)
+{
 	if (_signed)
-	{
-		std::cerr << "Form " << _name << " is already signed" << std::endl;
-		return;
-	}
-
+		throw Form::AlreadySigned();
 	if (bureaucrat.getGrade() > _gradeToSign)
 		throw Form::GradeTooLowException();
 
 	_signed = true;
+
+	std::cout << bureaucrat.getName() << " signed " << _name << std::endl;
 }
 
-const char *Form::GradeTooHighException::what() const throw() {
+const char *Form::GradeTooHighException::what() const throw()
+{
 	return "Grade too high";
 }
 
-const char *Form::GradeTooLowException::what() const throw() {
+const char *Form::GradeTooLowException::what() const throw()
+{
 	return "Grade too low";
+}
+
+const char *Form::AlreadySigned::what() const throw()
+{
+	return "Form already signed";
 }

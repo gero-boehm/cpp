@@ -15,7 +15,8 @@ Bureaucrat::Bureaucrat(const std::string &name, unsigned int grade): _name(name)
 
 Bureaucrat::Bureaucrat(const Bureaucrat &bureaucrat): _name(bureaucrat._name), _grade(bureaucrat._grade) {}
 
-Bureaucrat &Bureaucrat::operator=(const Bureaucrat &bureaucrat) {
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &bureaucrat)
+{
 	if (this == &bureaucrat)
 		return *this;
 
@@ -25,54 +26,57 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &bureaucrat) {
 	return *this;
 }
 
-Bureaucrat::~Bureaucrat() {}
+Bureaucrat::~Bureaucrat()
+{}
 
-const std::string &Bureaucrat::getName(void) const {
+const std::string &Bureaucrat::getName(void) const
+{
 	return _name;
 }
 
-unsigned int Bureaucrat::getGrade(void) const {
+unsigned int Bureaucrat::getGrade(void) const
+{
 	return _grade;
 }
 
-void Bureaucrat::incrementGrade(void) {
+void Bureaucrat::incrementGrade(void)
+{
 	if (_grade == 1)
 		throw Bureaucrat::GradeTooHighException();
 	_grade--;
 }
 
-void Bureaucrat::decrementGrade(void) {
+void Bureaucrat::decrementGrade(void)
+{
 	if (_grade == 150)
 		throw Bureaucrat::GradeTooLowException();
 	_grade++;
 }
 
-void Bureaucrat::signForm(const Form &form) const {
-	if (form.isSigned())
-	{
-		std::cerr << "Form " << form.getName() << " is already signed" << std::endl;
-		return;
-	}
-
+void Bureaucrat::signForm(Form &form) const
+{
 	try
 	{
 		form.beSigned(*this);
 	}
-	catch (Form::GradeTooLowException &e)
+	catch (std::exception &e)
 	{
 		std::cerr << *this << " cannot sign " << form.getName() << " because " << e.what() << std::endl;
 	}
 }
 
-const char *Bureaucrat::GradeTooHighException::what() const throw() {
+const char *Bureaucrat::GradeTooHighException::what() const throw()
+{
 	return "Grade too high";
 }
 
-const char *Bureaucrat::GradeTooLowException::what() const throw() {
+const char *Bureaucrat::GradeTooLowException::what() const throw()
+{
 	return "Grade too low";
 }
 
-std::ostream &operator<<(std::ostream &out, const Bureaucrat &bureaucrat) {
-	out << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << std::endl;
+std::ostream &operator<<(std::ostream &out, const Bureaucrat &bureaucrat)
+{
+	out << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade();
 	return out;
 }

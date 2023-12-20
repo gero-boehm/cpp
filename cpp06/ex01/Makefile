@@ -1,6 +1,6 @@
 CXX=c++
 CXXFLAGS=-std=c++98
-NAME=form
+NAME=data
 OBJ_DIR=obj
 SRC=$(wildcard *.cpp)
 OBJ=$(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC))

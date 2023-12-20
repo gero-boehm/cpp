@@ -33,13 +33,17 @@ void replace(std::string &str, const std::string &s1, const std::string &s2)
 	{
 		str.erase(pos, s1_len);
 		str.insert(pos, s2);
+
 		pos += s2_len;
+
+		if(s1_len == 0)
+			pos++;
 	}
 }
 
 int write_str(const std::string &filename, const std::string &str)
 {
-	std::ofstream outfile(std::string(filename + ".replace").c_str());
+	std::ofstream outfile((filename + ".replace").c_str());
 
 	if(!outfile.is_open())
 	{
