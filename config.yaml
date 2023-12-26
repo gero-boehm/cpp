@@ -134,3 +134,13 @@ cpp07:
     tests:
       - VALGRIND
 
+cpp08:
+  ex00:
+    name: find
+    tests:
+      - VALGRIND
+  ex01:
+    name: span
+    tests:
+      - VALGRIND
+
