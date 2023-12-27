@@ -38,6 +38,14 @@ void Span::addNumber(int num)
 	_elements.push_back(num);
 }
 
+const int &Span::operator[](unsigned int index) const
+{
+	if(index >= _elements.size())
+		throw Span::IndexOutOfRange();
+
+	return _elements.at(index);
+}
+
 unsigned int Span::shortestSpan(void) const
 {
 	if(_elements.size() < 2)
@@ -73,6 +81,11 @@ unsigned int Span::longestSpan(void) const
 	return static_cast<unsigned int>(max - min);
 }
 
+unsigned int Span::getSize(void) const
+{
+	return _elements.size();
+}
+
 const char *Span::MaxCapacityReached::what() const throw()
 {
 	return "Cannot insert number(s). Max capacity reached";
@@ -86,4 +99,22 @@ const char *Span::CapacityTooLow::what() const throw()
 const char *Span::NoSpanPossible::what() const throw()
 {
 	return "Cannot find span with less than 2 numbers";
+}
+
+const char *Span::IndexOutOfRange::what() const throw()
+{
+	return "Index out of range";
+}
+
+std::ostream &operator<<(std::ostream &out, const Span &span)
+{
+	out << "[";
+	for (unsigned int i = 0; i < span.getSize(); i++)
+	{
+		if(i > 0)
+			out << ", ";
+		out << span[i];
+	}
+	out << "]";
+	return out;
 }

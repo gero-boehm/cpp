@@ -143,4 +143,8 @@ cpp08:
     name: span
     tests:
       - VALGRIND
+  ex02:
+    name: stack
+    tests:
+      - VALGRIND
 
