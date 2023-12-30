@@ -148,3 +148,17 @@ cpp08:
     tests:
       - VALGRIND
 
+cpp09:
+  ex00:
+    name: btc
+    tests:
+      - VALGRIND
+  ex01:
+    name: RPN
+    tests:
+      - VALGRIND
+  ex02:
+    name: PmergeMe
+    tests:
+      - VALGRIND
+
