@@ -4,14 +4,13 @@
 #include <string>
 #include <string>
 #include <vector>
-#include <deque>
 
 class PmergeMe
 {
 	private:
 		PmergeMe(void);
 
-		const std::vector<unsigned int> _vec;
+		std::vector<unsigned int> _vec;
 
 		const std::vector<unsigned int> _parse(const std::string &str);
 
@@ -21,7 +20,7 @@ class PmergeMe
 		PmergeMe &operator=(const PmergeMe &pmergeMe);
 		~PmergeMe();
 
-		const std::vector<unsigned int> sort(void) const;
+		// const std::vector<unsigned int> sort(void) const;
 		const std::vector<unsigned int> getValues(void) const;
 };
 
