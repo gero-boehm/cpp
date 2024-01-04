@@ -12,7 +12,7 @@ class PmergeMe
 
 		std::vector<unsigned int> _vec;
 
-		const std::vector<unsigned int> _parse(const std::string &str);
+		std::vector<unsigned int> _parse(const std::string &str);
 
 	public:
 		explicit PmergeMe(const std::string &str);
@@ -21,7 +21,7 @@ class PmergeMe
 		~PmergeMe();
 
 		// const std::vector<unsigned int> sort(void) const;
-		const std::vector<unsigned int> getValues(void) const;
+		std::vector<unsigned int> getValues(void) const;
 };
 
 template <typename T>

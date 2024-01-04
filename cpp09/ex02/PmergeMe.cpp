@@ -27,7 +27,7 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &pmergeMe)
 
 PmergeMe::~PmergeMe() {}
 
-const std::vector<unsigned int> PmergeMe::_parse(const std::string &str)
+std::vector<unsigned int> PmergeMe::_parse(const std::string &str)
 {
 	std::vector<unsigned int> nums;
 

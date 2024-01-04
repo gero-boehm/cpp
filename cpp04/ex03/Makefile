@@ -21,7 +21,7 @@ $(OBJ_DIR)/%.o: %.cpp $(HEADERS) Makefile
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CXX) $(CXXFLAGS) $(HEADERS) -o $(NAME) $^
+	$(CXX) $(CXXFLAGS) -o $(NAME) $^
 
 clean:
 	rm -rf $(OBJ_DIR)

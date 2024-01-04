@@ -43,6 +43,8 @@ class Pair
 
 		~Pair() {}
 
+		static Pair<T>
+
 		const T &getMin(void) const
 		{
 			return _values.back();
