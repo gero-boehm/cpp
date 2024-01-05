@@ -12,17 +12,6 @@ enum e_type
 	INVALID
 };
 
-enum e_flag
-{
-	FLAG_NONE = 0,
-	FLAG_OVERFLOW = 1,
-	FLAG_IMPOSSIBLE = 2,
-	FLAG_NAN = 4,
-	FLAG_INF = 8,
-	FLAG_INF_POSITIVE = 16,
-	FLAG_INF_NEGATIVE = 32
-};
-
 typedef struct s_components
 {
 	int decimal_point;

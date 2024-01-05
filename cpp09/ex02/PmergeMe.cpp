@@ -8,7 +8,7 @@
 
 PmergeMe::PmergeMe(void) {}
 
-PmergeMe::PmergeMe(const std::string &str): _vec(PmergeMe::_parse(str)) {}
+PmergeMe::PmergeMe(const std::string &str): _arr(PmergeMe::_parse(str)) {}
 
 PmergeMe::PmergeMe(const PmergeMe &pmergeMe)
 {
@@ -20,7 +20,7 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &pmergeMe)
 	if(this == &pmergeMe)
 		return *this;
 
-	_vec = pmergeMe._vec;
+	_arr = pmergeMe._arr;
 
 	return *this;
 }
@@ -53,93 +53,52 @@ std::vector<unsigned int> PmergeMe::_parse(const std::string &str)
 	return nums;
 }
 
-const std::vector<unsigned int> PmergeMe::getValues(void) const
+std::vector<unsigned int> PmergeMe::getValues(void) const
 {
-	return _vec;
+	return _arr;
 }
 
+void PmergeMe::sort(void)
+{
+	std::deque<unsigned int> buffer(_arr.size());
+	mergeSort(buffer, 0, _arr.size() - 1);
+}
 
-// void merge(std::vector<unsigned int> &arr, std::deque<unsigned int> &left, std::deque<unsigned int> &right)
-// {
-// 	size_t l = 0, r = 0, k = 0;
-// 	while (l < left.size() && r < right.size()) {
-// 		if (left[l] < right[r]) {
-// 			arr[k++] = left[l++];
-// 		} else {
-// 			arr[k++] = right[r++];
-// 		}
-// 	}
+void PmergeMe::mergeSort(std::deque<unsigned int> &buffer, size_t left, size_t right)
+{
+	if (left < right) {
+		size_t mid = left + (right - left) / 2;
 
-// 	while (l < left.size()) {
-// 		arr[k++] = left[l++];
-// 	}
+		mergeSort(buffer, left, mid);
+		mergeSort(buffer, mid + 1, right);
 
-// 	while (r < right.size()) {
-// 		arr[k++] = right[r++];
-// 	}
-// }
+		mergeInsert(buffer, left, mid, right);
+	}
+}
 
-// void mergeInsertionSort(std::vector<unsigned int> &arr)
-// {
-// 	if (arr.size() <= 1) {
-// 		return;
-// 	}
+void PmergeMe::mergeInsert(std::deque<unsigned int> &buffer, size_t left, size_t mid, size_t right)
+{
+	size_t i = left;
+	size_t j = mid + 1;
+	size_t k = left;
 
-// 	std::deque<unsigned int> left, right;
-// 	for (size_t i = 0; i < arr.size(); i++) {
-// 		if (i % 2 == 0) {
-// 			left.push_back(arr[i]);
-// 		} else {
-// 			right.push_back(arr[i]);
-// 		}
-// 	}
+	while (i <= mid && j <= right) {
+		if (_arr[i] <= _arr[j]) {
+			buffer[k++] = _arr[i++];
+		} else {
+			buffer[k++] = _arr[j++];
+		}
+	}
 
-// 	std::vector<unsigned int> leftVec(left.begin(), left.end());
-// 	std::vector<unsigned int> rightVec(right.begin(), right.end());
+	while (i <= mid) {
+		buffer[k++] = _arr[i++];
+	}
 
-// 	mergeInsertionSort(leftVec);
-// 	mergeInsertionSort(rightVec);
+	while (j <= right) {
+		buffer[k++] = _arr[j++];
+	}
 
-// 	std::cout << leftVec << std::endl;
-// 	std::cout << rightVec << std::endl;
-
-// 	std::deque<unsigned int> leftDeque(leftVec.begin(), leftVec.end());
-// 	std::deque<unsigned int> rightDeque(rightVec.begin(), rightVec.end());
-
-// 	merge(arr, left, right);
-// }
-
-// const std::vector<unsigned int> PmergeMe::sort(void) const
-// {
-// 	std::vector<unsigned int> vec = const_cast<std::vector<unsigned int>&>(_vec);
-
-// 	mergeInsertionSort(vec);
-
-// 	return vec;
-// }
-
-
-
-// {5, 3, 1, 9, 8, 2, 7}
-
-// 5 1 8 7
-// 3 9 2
-
-// 5 9 8 7
-// 3 1 2
-
-
-// 5 8
-// 9 7
-
-// 9 8
-// 5 7
-
-// 9
-// 8
-
-// 5
-// 7
-
-// 7
-// 5
+	for (size_t idx = left; idx <= right; idx++) {
+		_arr[idx] = buffer[idx];
+	}
+}

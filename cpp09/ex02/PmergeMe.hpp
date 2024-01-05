@@ -2,15 +2,15 @@
 # define PMERGEME_HPP
 
 #include <string>
-#include <string>
 #include <vector>
+#include <deque>
 
 class PmergeMe
 {
 	private:
 		PmergeMe(void);
 
-		std::vector<unsigned int> _vec;
+		std::vector<unsigned int> _arr;
 
 		std::vector<unsigned int> _parse(const std::string &str);
 
@@ -20,8 +20,10 @@ class PmergeMe
 		PmergeMe &operator=(const PmergeMe &pmergeMe);
 		~PmergeMe();
 
-		// const std::vector<unsigned int> sort(void) const;
 		std::vector<unsigned int> getValues(void) const;
+		void sort(void);
+		void mergeSort(std::deque<unsigned int> &buffer, size_t left, size_t right);
+		void mergeInsert(std::deque<unsigned int> &buffer, size_t left, size_t mid, size_t right);
 };
 
 template <typename T>
