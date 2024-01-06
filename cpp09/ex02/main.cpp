@@ -1,7 +1,17 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <iomanip>
 #include "PmergeMe.hpp"
+
+const std::string formatTime(double time)
+{
+	std::stringstream stream;
+
+	stream << std::fixed << std::setprecision(6) << time << "µs";
+
+	return stream.str();
+}
 
 int main(int argc, char **argv)
 {
@@ -11,8 +21,6 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	(void) argv;
-
 	std::stringstream stream("");
 
 	for(int i = 1; i < argc; i++)
@@ -20,15 +28,21 @@ int main(int argc, char **argv)
 
 	try
 	{
-		PmergeMe sort(stream.str());
+		PmergeMe<std::vector<unsigned int> > vec(stream.str());
 
 		std::cout << "Before:" << std::endl;
-		std::cout << sort.getValues() << std::endl;
+		std::cout << vec.getValues() << std::endl;
 
-		sort.sort();
+		double vec_time = vec.sort();
 
 		std::cout << "After:" << std::endl;
-		std::cout << sort.getValues() << std::endl;
+		std::cout << vec.getValues() << std::endl;
+
+		PmergeMe<std::deque<unsigned int> > deq(stream.str());
+		double deq_time = deq.sort();
+
+		std::cout << "Time to process a range of " << vec.getSize() << " elements with std::vector : " << formatTime(vec_time) << std::endl;
+		std::cout << "Time to process a range of " << deq.getSize() << " elements with std::deque  : " << formatTime(deq_time) << std::endl;
 
 	}
 	catch(std::exception &e)
@@ -38,36 +52,3 @@ int main(int argc, char **argv)
 
 	return 0;
 }
-
-
-// #include <iostream>
-// #include <vector>
-// #include <deque>
-// #include <algorithm>
-
-
-
-// int main() {
-// 	std::vector<int> arr;
-// 	arr.push_back(12);
-// 	arr.push_back(56);
-// 	arr.push_back(8);
-// 	arr.push_back(1);
-// 	arr.push_back(8);
-
-// 	std::cout << "Before sorting:" << std::endl;
-// 	for (size_t i = 0; i < arr.size(); i++) {
-// 		std::cout << arr[i] << " ";
-// 	}
-// 	std::cout << std::endl;
-
-// 	fordJohnsonMergeInsert(arr);
-
-// 	std::cout << "After sorting:" << std::endl;
-// 	for (size_t i = 0; i < arr.size(); i++) {
-// 		std::cout << arr[i] << " ";
-// 	}
-// 	std::cout << std::endl;
-
-// 	return 0;
-// }
