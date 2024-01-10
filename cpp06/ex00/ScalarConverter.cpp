@@ -246,7 +246,7 @@ void convertDouble(std::stringstream &stream)
 
 	if(overflow)
 		std::cout << "float: impossible" << std::endl;
-	else if(d < static_cast<double>(std::numeric_limits<float>::min()) || d > static_cast<double>(std::numeric_limits<float>::max()))
+	else if(d < static_cast<double>(std::numeric_limits<float>::lowest()) || d > static_cast<double>(std::numeric_limits<float>::max()))
 		std::cout << "float: overflow" << std::endl;
 	else
 		std::cout << "float: " << getFloatString(f) << std::endl;
