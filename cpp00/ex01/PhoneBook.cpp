@@ -78,7 +78,7 @@ void PhoneBook::search_contacts()
 		int index;
 		std::istringstream stream(str);
 
-		if(!(stream >> index) || index < 0 || index >= _max_index)
+		if(!(stream >> index) || index < 0 || index >= _max_index || !stream.eof())
 		{
 			std::cout << "Invalid index." << std::endl;
 			continue;
