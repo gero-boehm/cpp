@@ -296,4 +296,3 @@ int ScalarConverter::convert(const std::string &str)
 
 	return 0;
 }
-
