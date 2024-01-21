@@ -18,15 +18,19 @@ int main(void)
 	animal->makeSound();
 
 	const WrongAnimal *wrongCat = new WrongCat();
+	const WrongCat *wrongCat2 = new WrongCat();
 
 	std::cout << wrongCat->getType() << std::endl;
+	std::cout << wrongCat2->getType() << std::endl;
 
 	wrongCat->makeSound();
+	wrongCat2->makeSound();
 
 	delete animal;
 	delete dog;
 	delete cat;
 	delete wrongCat;
+	delete wrongCat2;
 
 	return 0;
 }

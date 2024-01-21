@@ -11,14 +11,16 @@
 #include <cstdlib>
 #include <cerrno>
 #include <ctime>
+#include <cmath>
+#include "Composite.hpp"
 
-template<typename T>
+template<template<typename...> class C, typename T>
 class PmergeMe
 {
 	private:
 		PmergeMe(void) {}
 
-		T _arr;
+		C<T> _arr;
 
 	public:
 		PmergeMe(const std::string &str)
@@ -43,9 +45,9 @@ class PmergeMe
 
 		~PmergeMe() {}
 
-		T _parse(const std::string &str)
+		C<T> _parse(const std::string &str)
 		{
-			T nums;
+			C<T> nums;
 
 			std::istringstream stream(str);
 			std::string token;
@@ -70,7 +72,97 @@ class PmergeMe
 			return nums;
 		}
 
-		T getValues(void) const
+		void _sort(C<Composite &> &arr)
+		{
+			if(arr.size() <= 1)
+				return;
+
+			size_t size = arr.size();
+
+			C<Composite &> pair_arr(size / 2);
+			C<Composite &> main_arr(size);
+			C<Composite &> pend_arr(size / 2 + size % 2);
+
+			_makePairs(arr, pair_arr, size);
+			_sort(pair_arr);
+			_prepareChains(pair_arr, main_arr, pend_arr, size);
+			_insertPend(main_arr, pend_arr);
+
+			arr = main_arr;
+		}
+
+		void _makePairs(C<Composite &> &arr, C<Composite &> &pair_arr, size_t size)
+		{
+			for(unsigned long i = 0; i < size; i += 2)
+			{
+				Pair pair(arr[i], arr[i + 1]);
+				pair_arr.push_back(pair);
+			}
+		}
+
+		void _prepareChains(C<Composite &> &pair_arr, C<Composite &> &main_arr, C<Composite &> &pend_arr, size_t size)
+		{
+			main_arr.push_back((*pair_arr.begin()).getMin());
+			for(typename C<Composite &>::iterator it = pair_arr.begin(); it != pair_arr.end(); it++)
+			{
+				main_arr.push_back((*it).getMax());
+				pend_arr.push_back((*it).getMin());
+			}
+
+			if(size % 2 == 1)
+			{
+				pend_arr.push_back(*pair_arr.rbegin());
+			}
+		}
+
+		void _insertPend(C<Composite &> &main_arr, C<Composite &> &pend_arr)
+		{
+
+			typename C<Composite &>::iterator lower = pend_arr.begin() + 1;
+
+			for(unsigned long k = 2; true; k++)
+			{
+				typename C<Composite &>::iterator upper = pend_arr.begin() + _getTK(k);
+
+				if(upper > pend_arr.end())
+					upper = pend_arr.end();
+
+				typename C<Composite &>::iterator it = upper;
+
+				while(it > lower)
+				{
+					unsigned long index = _binarySearch(main_arr, 0, pow(2, k) - 1, *it);
+					main_arr.insert(main_arr.begin() + index, *it);
+				}
+
+				if(upper == pend_arr.end())
+					break;
+
+				lower = upper + 1;
+			}
+		}
+
+		unsigned long _getTK(unsigned long k)
+		{
+			return (pow(2, k + 1) + pow(-1, k)) / 3;
+		}
+
+		unsigned long _binarySearch(C<Composite &> &arr, unsigned long startIndex, unsigned long endIndex, Composite &value)
+		{
+			if(startIndex > endIndex)
+				return startIndex;
+
+			unsigned long middleIndex = (startIndex + endIndex) / 2;
+
+			if(arr[middleIndex] == value)
+				return middleIndex;
+			else if(arr[middleIndex] > value)
+				return _binarySearch(arr, startIndex, middleIndex - 1, value);
+			else
+				return _binarySearch(arr, middleIndex + 1, endIndex, value);
+		}
+
+		C<T> getValues(void) const
 		{
 			return _arr;
 		}
@@ -84,59 +176,19 @@ class PmergeMe
 		{
 			std::clock_t start = std::clock();
 
-			T buffer(_arr.size());
-			mergeSort(buffer, 0, _arr.size() - 1);
+			C<Composite &> numbers(_arr.size());
+
+			for (typename C<T>::iterator it = _arr.begin(); it != _arr.end(); it++)
+				numbers.push_back(Number(*it));
+
+			_sort(numbers);
+
+			or (unsigned long i = 0; i < numbers.size(); i++)
+				_arr[i] = numbers[i].getValue();
 
 			std::clock_t end = std::clock();
 
 			return static_cast<double>(end - start) / CLOCKS_PER_SEC;
-		}
-
-		void mergeSort(T &buffer, size_t left, size_t right)
-		{
-			if (left < right)
-			{
-				size_t mid = left + (right - left) / 2;
-
-				mergeSort(buffer, left, mid);
-				mergeSort(buffer, mid + 1, right);
-
-				mergeInsert(buffer, left, mid, right);
-			}
-		}
-
-		void mergeInsert(T &buffer, size_t left, size_t mid, size_t right)
-		{
-			size_t i = left;
-			size_t j = mid + 1;
-			size_t k = left;
-
-			while (i <= mid && j <= right)
-			{
-				if (_arr[i] <= _arr[j])
-				{
-					buffer[k++] = _arr[i++];
-				}
-				else
-				{
-					buffer[k++] = _arr[j++];
-				}
-			}
-
-			while (i <= mid)
-			{
-				buffer[k++] = _arr[i++];
-			}
-
-			while (j <= right)
-			{
-				buffer[k++] = _arr[j++];
-			}
-
-			for (size_t idx = left; idx <= right; idx++)
-			{
-				_arr[idx] = buffer[idx];
-			}
 		}
 };
 
@@ -147,7 +199,7 @@ std::ostream &operator<<(std::ostream &out, const std::vector<T> &arr)
 	for(unsigned long i = 0; i < arr.size(); i++)
 	{
 		if(i > 0)
-			out << " ";
+			out << ' ';
 
 		out << arr[i];
 	}
@@ -161,7 +213,7 @@ std::ostream &operator<<(std::ostream &out, const std::deque<T> &arr)
 	for(unsigned long i = 0; i < arr.size(); i++)
 	{
 		if(i > 0)
-			out << " ";
+			out << ' ';
 
 		out << arr[i];
 	}

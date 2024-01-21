@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 
 	try
 	{
-		PmergeMe<std::vector<unsigned int> > vec(stream.str());
+		PmergeMe<std::vector, unsigned int> vec(stream.str());
 
 		std::cout << "Before:" << std::endl;
 		std::cout << vec.getValues() << std::endl;
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 		std::cout << "After:" << std::endl;
 		std::cout << vec.getValues() << std::endl;
 
-		PmergeMe<std::deque<unsigned int> > deq(stream.str());
+		PmergeMe<std::deque, unsigned int> deq(stream.str());
 		double deq_time = deq.sort();
 
 		std::cout << "Time to process a range of " << vec.getSize() << " elements with std::vector : " << formatTime(vec_time) << std::endl;
