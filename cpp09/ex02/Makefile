@@ -32,7 +32,7 @@ fclean: clean
 re: fclean all
 
 test: all
-	./$(NAME)
+	./$(NAME) "5" "97" "1" "35" "9" "0" "3" "2"
 
 valgrind: all
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 2>&1 | ../../eval.sh

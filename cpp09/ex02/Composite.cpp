@@ -37,9 +37,21 @@ bool Composite::operator!=(const Composite &composite) const
 
 
 // Pair
-Pair::Pair(void): Composite(), _min(Number::Default), _max(Number::Default) {}
+Pair::Pair(void): Composite(), _min(new Number(0)), _max(new Number(0)) {}
 
-Pair::Pair(const Composite &c1, const Composite &c2): Composite(), _min(c1 > c2 ? c1 : c2), _max(c2 > c1 ? c2 : c1) {}
+Pair::Pair(const Composite *c1, const Composite *c2): Composite()
+{
+	if(*c1 < *c2)
+	{
+		_min = c1;
+		_max = c2;
+	}
+	else
+	{
+		_min = c2;
+		_max = c1;
+	}
+}
 
 Pair::Pair(const Pair &pair): Composite(), _min(pair._min), _max(pair._max) {}
 
@@ -54,22 +66,20 @@ Pair::~Pair(void) {}
 
 int Pair::getValue(void) const
 {
-	return _max.getValue();
+	return _max->getValue();
 }
 
-const Composite &Pair::getMin(void) const
+const Composite *Pair::getMin(void) const
 {
 	return _min;
 }
 
-const Composite &Pair::getMax(void) const
+const Composite *Pair::getMax(void) const
 {
 	return _max;
 }
 
 // Number
-const Number Number::Default = Number(0);
-
 Number::Number(void): Composite(), _value(0) {}
 
 Number::Number(int number): Composite(), _value(number) {}
@@ -78,7 +88,10 @@ Number::Number(const Number &number): Composite(), _value(number._value) {}
 
 Number &Number::operator=(const Number &number)
 {
-	(void) number;
+	if(this == &number)
+		return *this;
+
+	_value = number._value;
 
 	return *this;
 }

@@ -1,19 +1,10 @@
 #include <iostream>
-#include <sstream>
 #include <stdexcept>
-#include <iomanip>
+#include <vector>
+#include <deque>
 #include "PmergeMe.hpp"
 
-const std::string formatTime(double time)
-{
-	std::stringstream stream;
-
-	stream << std::fixed << std::setprecision(6) << time << "µs";
-
-	return stream.str();
-}
-
-int main(int argc, char **argv)
+int main(int argc, const char **argv)
 {
 	if(argc < 2)
 	{
@@ -21,29 +12,15 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	std::stringstream stream("");
-
-	for(int i = 1; i < argc; i++)
-		stream << argv[i] << " ";
+	argv++;
 
 	try
 	{
-		PmergeMe<std::vector, unsigned int> vec(stream.str());
+		PmergeMe<std::vector<const Composite *> > vec;
+		PmergeMe<std::deque<const Composite *> > deq;
 
-		std::cout << "Before:" << std::endl;
-		std::cout << vec.getValues() << std::endl;
-
-		double vec_time = vec.sort();
-
-		std::cout << "After:" << std::endl;
-		std::cout << vec.getValues() << std::endl;
-
-		PmergeMe<std::deque, unsigned int> deq(stream.str());
-		double deq_time = deq.sort();
-
-		std::cout << "Time to process a range of " << vec.getSize() << " elements with std::vector : " << formatTime(vec_time) << std::endl;
-		std::cout << "Time to process a range of " << deq.getSize() << " elements with std::deque  : " << formatTime(deq_time) << std::endl;
-
+		vec.sort(argv, "vector");
+		deq.sort(argv, "deque");
 	}
 	catch(std::exception &e)
 	{

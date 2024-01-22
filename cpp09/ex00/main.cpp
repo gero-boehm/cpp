@@ -2,6 +2,8 @@
 #include <stdexcept>
 #include "BitcoinExchange.hpp"
 
+// fix date parsing (no check for dash (-))
+
 int main(int argc, char **argv)
 {
 	if(argc == 1)
