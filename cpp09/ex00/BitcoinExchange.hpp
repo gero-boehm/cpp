@@ -52,7 +52,7 @@ class BitcoinExchange
 		bool isDatabaseInvalid(void) const;
 
 		void calculate(void) const;
-		Value getValue(const Date &date) const;
+		std::map<Date, Value>::const_reverse_iterator getMatch(const Date &date) const;
 
 		class DatabaseInvalid: public std::exception
 		{

@@ -115,35 +115,31 @@ void BitcoinExchange::calculate(void) const
 			continue;
 		}
 
-		Value entry = getValue(date);
+		std::map<Date, Value>::const_reverse_iterator match = getMatch(date);
 
-		if(!entry.valid)
+		if(match == _database.rend())
 		{
 			std::cout << "Error: no entry found" << std::endl;
 			continue;
 		}
 
-		float total = entry.value * value.value;
+		float total = match->second.value * value.value;
 
-		std::cout << date << " | " << std::fixed << std::setprecision(2) << total << std::endl;
+		std::cout << match->first << " | " << std::fixed << std::setprecision(2) << total << std::endl;
     }
 }
 
-Value BitcoinExchange::getValue(const Date &date) const
+std::map<Date, Value>::const_reverse_iterator BitcoinExchange::getMatch(const Date &date) const
 {
-	Value last = Value(0, false);
-
-	for (std::map<Date, Value>::const_iterator it = _database.begin(); it != _database.end(); it++)
+	for (std::map<Date, Value>::const_reverse_iterator it = _database.rbegin(); it != _database.rend(); it++)
 	{
 		Date key = it->first;
 
-		if(key.timestamp > date.timestamp)
-			break;
-
-		last = it->second;
+		if(key.timestamp <= date.timestamp)
+			return it;
 	}
 
-	return last;
+	return _database.rend();
 }
 
 const char *BitcoinExchange::DatabaseInvalid::what() const throw()
@@ -198,7 +194,7 @@ const Date Date::parse(int index, const std::string &str)
 
 	std::istringstream stream(str);
 
-	if (!(stream >> year >> dash >> month >> dash >> day))
+	if (!(stream >> year) || !(stream >> dash) || dash != '-' || !(stream >> month) || !(stream >> dash) || dash != '-' || !(stream >> day) || !stream.eof())
 		return Date::invalid(index, str);
 
 	if(month < 1 || month > 12 || day < 1 || day > Date::daysInMonth(year, month))

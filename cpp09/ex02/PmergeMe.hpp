@@ -209,7 +209,7 @@ class PmergeMe
 
 			std::clock_t end = std::clock();
 
-			std::cout << "Time to process a range of " << count << " elements with std::" << type << " : " << _getTime(start, end) << std::endl;
+			std::cout << "Time to process a range of " << count << " element" << (count == 1 ? "" : "s") << " with std::" << std::left << std::setw(6) << type << " : " << _getTime(start, end) << std::endl;
 
 		}
 };
