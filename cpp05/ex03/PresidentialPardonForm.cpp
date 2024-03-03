@@ -1,6 +1,6 @@
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm(void): AForm("Presidential Pardon Form", 25, 5), _target("Undefined") {}
+// PresidentialPardonForm::PresidentialPardonForm(void): AForm("Presidential Pardon Form", 25, 5), _target("Undefined") {}
 
 PresidentialPardonForm::PresidentialPardonForm(const std::string &target): AForm("Presidential Pardon Form", 25, 5), _target(target) {}
 

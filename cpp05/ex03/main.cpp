@@ -13,7 +13,7 @@ int main(void)
 
 	for (int i = 0; i < 10; i++)
 	{
-		AForm * form = intern.makeForm(formNames[rand() % 4], "target");
+		AForm *form = intern.makeForm(formNames[rand() % 4], "target");
 		delete form;
 	}
 

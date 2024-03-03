@@ -35,5 +35,11 @@ int main(void)
 		peter.executeForm(form);
 	}
 
+	{
+		// ShrubberyCreationForm form;
+		// RobotomyRequestForm form;
+		// PresidentialPardonForm form;
+	}
+
 	return 0;
 }

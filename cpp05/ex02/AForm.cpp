@@ -52,7 +52,7 @@ void AForm::beSigned(const Bureaucrat &bureaucrat)
 
 	_signed = true;
 
-	std::cout << bureaucrat.getName() << " signed " << _name << std::endl;
+	std::cout << bureaucrat << " signed " << *this << std::endl;
 }
 
 void AForm::execute(const Bureaucrat &bureaucrat) const
@@ -81,4 +81,10 @@ const char *AForm::NotSigned::what() const throw()
 const char *AForm::AlreadySigned::what() const throw()
 {
 	return "Form already signed";
+}
+
+std::ostream &operator<<(std::ostream &out, const AForm &form)
+{
+	out << form.getName() << " (" << (form.isSigned() ? "" : "not ") << "signed, grade to sign: " << form.getGradeToSign() << ", grade to execute: " << form.getGradeToExecute() << ")";
+	return out;
 }

@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(void): AForm("Robotomy Request Form", 72, 45), _target("Undefined") {}
+// RobotomyRequestForm::RobotomyRequestForm(void): AForm("Robotomy Request Form", 72, 45), _target("Undefined") {}
 
 RobotomyRequestForm::RobotomyRequestForm(const std::string &target): AForm("Robotomy Request Form", 72, 45), _target(target) {}
 

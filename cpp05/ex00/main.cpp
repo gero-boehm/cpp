@@ -4,11 +4,11 @@ int main(void)
 {
 	{
 		Bureaucrat *bureaucrat = new Bureaucrat("Bob", 150);
-		std::cout << *bureaucrat;
+		std::cout << *bureaucrat << std::endl;
 		bureaucrat->incrementGrade();
-		std::cout << *bureaucrat;
+		std::cout << *bureaucrat << std::endl;
 		bureaucrat->decrementGrade();
-		std::cout << *bureaucrat;
+		std::cout << *bureaucrat << std::endl;
 
 		delete bureaucrat;
 	}
