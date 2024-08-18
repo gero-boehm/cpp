@@ -171,6 +171,13 @@ void convertFloat(std::stringstream &stream)
 		return;
 	}
 
+	std::string str = stream.str();
+
+    if(!str.empty())
+        str.resize(str.size() - 1);
+
+    stream.str(str);
+
 	float f;
 	bool overflow = !(stream >> f);
 	char c = static_cast<char>(f);
@@ -246,7 +253,7 @@ void convertDouble(std::stringstream &stream)
 
 	if(overflow)
 		std::cout << "float: impossible" << std::endl;
-	else if(d < static_cast<double>(std::numeric_limits<float>::lowest()) || d > static_cast<double>(std::numeric_limits<float>::max()))
+	else if(d < -static_cast<double>(std::numeric_limits<float>::max()) || d > static_cast<double>(std::numeric_limits<float>::max()))
 		std::cout << "float: overflow" << std::endl;
 	else
 		std::cout << "float: " << getFloatString(f) << std::endl;
